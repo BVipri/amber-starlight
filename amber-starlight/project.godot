@@ -21,6 +21,7 @@ window/stretch/mode="canvas_items"
 
 [editor]
 
+movie_writer/movie_file="C:/Users/Oliver Sloan/Documents/amber-starlight/movie.avi"
 version_control/plugin_name="GitPlugin"
 version_control/autoload_on_startup=true
 
