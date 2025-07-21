@@ -4,9 +4,8 @@ func _ready():
 	var mainObjectLayerC1 = self
 	var mainObjectLayerC2 = self.get_parent().get_node("C2")
 	for i in range(6):
-		var object = Objects._generatePlant(i)
-		for tile in object:
-			if tile[1] == 0:
-				mainObjectLayerC1.set_cell(Vector2i(i*1000+tile[0].x,0+4+tile[0].y),tile[1],Vector2(0,0),0)
-			else:
-				mainObjectLayerC2.set_cell(Vector2i(i*1000+tile[0].x,0+4+tile[0].y),tile[1],Vector2(0,0),0)
+		var object = Objects._generatePlant(0)
+		Objects.resizeObject(object[0],Vector2i(i,i),0)
+		Objects.resizeObject(object[1],Vector2i(i,i),1)
+		mainObjectLayerC1.set_pattern(Vector2i(i*100-1000,-1000),object[0])
+		mainObjectLayerC2.set_pattern(Vector2i(i*100-1000,-1000),object[1])

@@ -169,7 +169,6 @@ texture_region_size = Vector2i(128, 128)
 
 [sub_resource type="TileSet" id="TileSet_jka67"]
 tile_size = Vector2i(128, 128)
-physics_layer_0/collision_layer = 1
 sources/1 = SubResource("TileSetAtlasSource_4arys")
 sources/0 = SubResource("TileSetAtlasSource_jsk3o")
 
@@ -190,12 +189,11 @@ sources/1 = SubResource("TileSetAtlasSource_wc5p8")
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_a0tk4")
-rendDist = 40
 
 [node name="Player" type="CharacterBody2D" parent="."]
-scale = Vector2(0.5, 0.5)
+scale = Vector2(0.25, 0.25)
 script = ExtResource("1_a202f")
-speed = 500
+speed = 350
 gravity = 200
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
@@ -209,12 +207,12 @@ texture = ExtResource("1_noarx")
 [node name="MainLayer" type="Node" parent="."]
 
 [node name="C1" type="TileMapLayer" parent="MainLayer"]
-scale = Vector2(0.01, 0.01)
+scale = Vector2(0.25, 0.25)
 tile_map_data = PackedByteArray("AAD8/wMAAAAAAAAAAAD9/wMAAAAAAAAAAAD+/wMAAAAAAAAAAAD//wMAAAAAAAAAAAAAAAMAAAAAAAAAAAABAAMAAAAAAAAAAAACAAMAAAAAAAAAAAADAAMAAAAAAAAAAAA=")
 tile_set = SubResource("TileSet_cdqbm")
 
 [node name="C2" type="TileMapLayer" parent="MainLayer"]
-scale = Vector2(0.01, 0.01)
+scale = Vector2(0.25, 0.25)
 tile_map_data = PackedByteArray("AAD8/wMAAAAAAAAAAAD9/wMAAAAAAAAAAAD+/wMAAAAAAAAAAAD//wMAAAAAAAAAAAAAAAMAAAAAAAAAAAABAAMAAAAAAAAAAAACAAMAAAAAAAAAAAADAAMAAAAAAAAAAAA=")
 tile_set = SubResource("TileSet_cdqbm")
 
@@ -222,29 +220,31 @@ tile_set = SubResource("TileSet_cdqbm")
 
 [node name="C1" type="TileMapLayer" parent="MainObjectLayer"]
 z_index = -1
-scale = Vector2(0.01, 0.01)
+scale = Vector2(0.025, 0.025)
 tile_map_data = PackedByteArray("AAD8/wMAAAAAAAAAAAD9/wMAAAAAAAAAAAD+/wMAAAAAAAAAAAD//wMAAAAAAAAAAAAAAAMAAAAAAAAAAAABAAMAAAAAAAAAAAACAAMAAAAAAAAAAAADAAMAAAAAAAAAAAA=")
 tile_set = SubResource("TileSet_jka67")
+collision_enabled = false
 script = ExtResource("8_4arys")
 
 [node name="C2" type="TileMapLayer" parent="MainObjectLayer"]
 modulate = Color(1, 1, 1, 0.494118)
 z_index = -1
-scale = Vector2(0.01, 0.01)
+scale = Vector2(0.025, 0.025)
 tile_map_data = PackedByteArray("AAD8/wMAAAAAAAAAAAD9/wMAAAAAAAAAAAD+/wMAAAAAAAAAAAD//wMAAAAAAAAAAAAAAAMAAAAAAAAAAAABAAMAAAAAAAAAAAACAAMAAAAAAAAAAAADAAMAAAAAAAAAAAA=")
 tile_set = SubResource("TileSet_jka67")
+collision_enabled = false
 script = ExtResource("6_i5arm")
 
 [node name="BackgroundLayer1" type="Node" parent="."]
 
 [node name="C1" type="TileMapLayer" parent="BackgroundLayer1"]
 z_index = -2
-scale = Vector2(0.01, 0.01)
+scale = Vector2(0.2, 0.2)
 tile_set = SubResource("TileSet_i5arm")
 
 [node name="BackgroundLayer2" type="Node" parent="."]
 
 [node name="C1" type="TileMapLayer" parent="BackgroundLayer2"]
 z_index = -4
-scale = Vector2(0.01, 0.01)
+scale = Vector2(0.15, 0.15)
 tile_set = SubResource("TileSet_i5arm")
