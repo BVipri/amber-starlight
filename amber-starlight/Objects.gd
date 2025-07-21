@@ -66,6 +66,7 @@ static func resizeObject(object, size, source):
 	var cells = object.get_used_cells()
 	for cell in cells:
 		for i in range(size.x):
-			object.set_cell(cell*size.x+Vector2i(i,0),source,Vector2i(0,0),0)
-		for j in range(size.y):
-			object.set_cell(cell*size.y+Vector2i(0,j),source,Vector2i(0,0),0)
+			for j in range(size.y):
+				var x = (cell.x-1000)*size.x + i + 1000
+				var y = (cell.y-1000)*size.y + j + 1000
+				object.set_cell(Vector2i(x,y),source,Vector2i(0,0),0)

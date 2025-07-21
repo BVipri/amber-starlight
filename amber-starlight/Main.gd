@@ -1,5 +1,6 @@
 extends Node2D
 @export var rendDist = 80
+@export var numObjects = 30
 
 var timer = 0
 var mainLayerC1
@@ -11,7 +12,7 @@ var mainObjectLayerC2
 var generating = false
 var loadedX = []
 var objects = []
-var loadedObjects = []
+var loadedObjectX = []
 var planet
 var player
 var noise = FastNoiseLite.new()
@@ -34,27 +35,32 @@ func _generate(pos) -> void:
 		newLoadedX.append(x)
 		if loadedX.find(x) == -1:
 			var y = _generate_y(planet.id,x)
-			var bgy = _generate_y(planet.id+3,x*0.8)-planet.scale/20
-			var bgy2 = _generate_y(planet.id+6,x*0.6)-planet.scale/10
+			var bgy = _generate_y(planet.id+3,x)-planet.scale/20
+			var bgy2 = _generate_y(planet.id+6,x)-planet.scale/10
 			for j in range(rendDist/2):
 				var grassNoise = FastNoiseLite.new()
 				grassNoise.noise_type = FastNoiseLite.TYPE_CELLULAR
 				grassNoise.seed = planet.id
 				if j == 0 or j - grassNoise.get_noise_1d(x)*15 < rendDist/16:
 					mainLayerC2.set_cell(Vector2i(x,y+j),1,Vector2i(0,0),0)
-					backgroundLayer1.set_cell(Vector2i(x*0.8,bgy+j),1,Vector2i(0,0),0)
-					backgroundLayer2.set_cell(Vector2i(x*0.6,bgy2+j),1,Vector2i(0,0),0)
+					backgroundLayer1.set_cell(Vector2i(x*1.5,bgy+j),1,Vector2i(0,0),0)
+					if x%2 == 0:
+						var dir = 1 if x<0 else -1
+						backgroundLayer1.set_cell(Vector2i(x*1.5 + dir,bgy+j),1,Vector2i(0,0),0)
+					backgroundLayer2.set_cell(Vector2i(x*2,bgy2+j),1,Vector2i(0,0),0)
+					backgroundLayer2.set_cell(Vector2i(x*2+1,bgy2+j),1,Vector2i(0,0),0)
 				else:
 					mainLayerC1.set_cell(Vector2i(x,y+j),0,Vector2i(0,0),0)
-					backgroundLayer1.set_cell(Vector2i(x*0.8,bgy+j),0,Vector2i(0,0),0)
-					backgroundLayer2.set_cell(Vector2i(x*0.6,bgy2+j),0,Vector2i(0,0),0)
+					backgroundLayer1.set_cell(Vector2i(x*1.5,bgy+j),0,Vector2i(0,0),0)
+					if x%2 == 0:
+						var dir = 1 if x<0 else -1
+						backgroundLayer1.set_cell(Vector2i(x*1.5 + dir,bgy+j),0,Vector2i(0,0),0)
+					backgroundLayer2.set_cell(Vector2i(x*2,bgy2+j),0,Vector2i(0,0),0)
+					backgroundLayer2.set_cell(Vector2i(x*2+1,bgy2+j),0,Vector2i(0,0),0)
 			noise.seed = planet.id + 1
-			if noise.get_noise_1d(x) < 0.15 and x%20==0:
-				var object = objects[random.randi_range(0,14)]
-				var size = Vector2i(random.randi_range(0,30),random.randi_range(0,30))
-				Objects.resizeObject(object[0],size,0)
-				Objects.resizeObject(object[1],size,1)
-				loadedObjects.append([object,Vector2i(x*10-1000,y*10-1000)])
+			if noise.get_noise_1d(x) < 0.15 and x%20==0 and loadedObjectX.find(x) == -1:
+				var object = objects[random.randi_range(0,numObjects-1)]
+				loadedObjectX.append(x)
 				mainObjectLayerC1.set_pattern(Vector2i(x*10-1000,y*10-1000),object[0])
 				mainObjectLayerC2.set_pattern(Vector2i(x*10-1000,y*10-1000),object[1])
 			noise.seed = planet.id
@@ -66,8 +72,12 @@ func _generate(pos) -> void:
 			for j in range(rendDist/2):
 				mainLayerC1.erase_cell(Vector2i(x,y+j))
 				mainLayerC2.erase_cell(Vector2i(x,y+j))
-				backgroundLayer1.erase_cell(Vector2i(x,bgy+j))
-				backgroundLayer2.erase_cell(Vector2i(x,bgy2+j))
+				backgroundLayer1.erase_cell(Vector2i(x*1.5,bgy+j))
+				if x%2 == 0:
+					var dir = 1 if x<0 else -1
+					backgroundLayer1.erase_cell(Vector2i(x*1.5 + dir,bgy+j))
+				backgroundLayer2.erase_cell(Vector2i(x*2,bgy2+j))
+				backgroundLayer2.erase_cell(Vector2i(x*2+1,bgy2+j))
 	#for object in loadedObjects:
 		#if newLoadedX.find((object[1].x+1000)/10) == -1:
 			#var cells = object[0][0].get_used_cells()
@@ -103,7 +113,7 @@ func _clear() -> void:
 	mainObjectLayerC1.clear()
 	mainObjectLayerC2.clear()
 	loadedX = []
-	loadedObjects = []
+	loadedObjectX = []
 	objects = []
 	
 func _gen_planet(p) -> void:
@@ -119,7 +129,7 @@ func _gen_planet(p) -> void:
 	player.gravity = int(planet.size)
 	player.position = Vector2(0,-100)
 	random.seed = planet.id
-	for i in range(15):
+	for i in range(numObjects):
 		objects.append(Objects._generatePlant(planet.id+i))
 
 func _process(delta: float) -> void:

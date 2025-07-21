@@ -1,7 +1,7 @@
 [gd_scene load_steps=20 format=4 uid="uid://cp845h34qu67s"]
 
 [ext_resource type="Script" uid="uid://bhg1bit2d45d7" path="res://Main.gd" id="1_a0tk4"]
-[ext_resource type="Script" uid="uid://djxdhc8v0hvm2" path="res://node_3d.gd" id="1_a202f"]
+[ext_resource type="Script" path="res://node_3d.gd" id="1_a202f"]
 [ext_resource type="Texture2D" uid="uid://ddacjcbaohnmj" path="res://icon.svg" id="1_noarx"]
 [ext_resource type="Texture2D" uid="uid://cb7e3fwcl8jv2" path="res://New Piskel (4).png" id="4_r3fl7"]
 [ext_resource type="Texture2D" uid="uid://dkn1jctt7tld6" path="res://New Piskel (5).png" id="5_jka67"]
@@ -239,12 +239,12 @@ script = ExtResource("6_i5arm")
 
 [node name="C1" type="TileMapLayer" parent="BackgroundLayer1"]
 z_index = -2
-scale = Vector2(0.2, 0.2)
+scale = Vector2(0.125, 0.125)
 tile_set = SubResource("TileSet_i5arm")
 
 [node name="BackgroundLayer2" type="Node" parent="."]
 
 [node name="C1" type="TileMapLayer" parent="BackgroundLayer2"]
 z_index = -4
-scale = Vector2(0.15, 0.15)
+scale = Vector2(0.063, 0.063)
 tile_set = SubResource("TileSet_i5arm")
