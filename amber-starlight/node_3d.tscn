@@ -1,14 +1,17 @@
-[gd_scene load_steps=20 format=4 uid="uid://cp845h34qu67s"]
+[gd_scene load_steps=29 format=4 uid="uid://cp845h34qu67s"]
 
 [ext_resource type="Script" uid="uid://bhg1bit2d45d7" path="res://Main.gd" id="1_a0tk4"]
 [ext_resource type="Script" path="res://node_3d.gd" id="1_a202f"]
 [ext_resource type="Texture2D" uid="uid://ddacjcbaohnmj" path="res://icon.svg" id="1_noarx"]
-[ext_resource type="Texture2D" uid="uid://cb7e3fwcl8jv2" path="res://New Piskel (4).png" id="4_r3fl7"]
-[ext_resource type="Texture2D" uid="uid://dkn1jctt7tld6" path="res://New Piskel (5).png" id="5_jka67"]
+[ext_resource type="Texture2D" uid="uid://cb7e3fwcl8jv2" path="res://Dirt_0.png" id="4_r3fl7"]
+[ext_resource type="Texture2D" uid="uid://dkn1jctt7tld6" path="res://Grass_0.png" id="5_jka67"]
 [ext_resource type="Script" uid="uid://b6508r6a2v3wc" path="res://Objects.gd" id="6_i5arm"]
+[ext_resource type="Texture2D" uid="uid://ciusni27ocyl5" path="res://Grass_1.png" id="6_tereu"]
 [ext_resource type="Texture2D" uid="uid://d2bd2cotylpop" path="res://New Piskel (7).png" id="6_wc5p8"]
+[ext_resource type="Texture2D" uid="uid://bjqt7l20oion" path="res://Dirt_1.png" id="7_cdqbm"]
 [ext_resource type="Texture2D" uid="uid://n6yy33huam27" path="res://New Piskel (8).png" id="7_jsk3o"]
 [ext_resource type="Script" uid="uid://cvytypp01e6cx" path="res://ObjectTestScript.gd" id="8_4arys"]
+[ext_resource type="Texture2D" uid="uid://cyasjfp62bt0t" path="res://Dirt_2.png" id="8_cdqbm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_noarx"]
 size = Vector2(125, 124)
@@ -151,11 +154,32 @@ texture_region_size = Vector2i(128, 128)
 6:7/0 = 0
 7:7/0 = 0
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_imku0"]
+texture = ExtResource("6_tereu")
+texture_region_size = Vector2i(128, 128)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-64, -64, 64, -64, 64, 64, -64, 64)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wlxy5"]
+texture = ExtResource("7_cdqbm")
+texture_region_size = Vector2i(128, 128)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-64, -64, 64, -64, 64, 64, -64, 64)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_tcnuu"]
+texture = ExtResource("8_cdqbm")
+texture_region_size = Vector2i(128, 128)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-64, -64, 64, -64, 64, 64, -64, 64)
+
 [sub_resource type="TileSet" id="TileSet_cdqbm"]
 tile_size = Vector2i(128, 128)
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_6iypd")
 sources/1 = SubResource("TileSetAtlasSource_tereu")
+sources/2 = SubResource("TileSetAtlasSource_imku0")
+sources/3 = SubResource("TileSetAtlasSource_wlxy5")
+sources/4 = SubResource("TileSetAtlasSource_tcnuu")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jsk3o"]
 texture = ExtResource("6_wc5p8")
@@ -182,10 +206,28 @@ texture = ExtResource("5_jka67")
 texture_region_size = Vector2i(128, 128)
 0:0/0 = 0
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_cdqbm"]
+texture = ExtResource("6_tereu")
+texture_region_size = Vector2i(128, 128)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3v7ru"]
+texture = ExtResource("7_cdqbm")
+texture_region_size = Vector2i(128, 128)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_tuemg"]
+texture = ExtResource("8_cdqbm")
+texture_region_size = Vector2i(128, 128)
+0:0/0 = 0
+
 [sub_resource type="TileSet" id="TileSet_i5arm"]
 tile_size = Vector2i(128, 128)
 sources/0 = SubResource("TileSetAtlasSource_jka67")
 sources/1 = SubResource("TileSetAtlasSource_wc5p8")
+sources/3 = SubResource("TileSetAtlasSource_3v7ru")
+sources/2 = SubResource("TileSetAtlasSource_cdqbm")
+sources/5 = SubResource("TileSetAtlasSource_tuemg")
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_a0tk4")

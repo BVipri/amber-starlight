@@ -18,6 +18,16 @@ var player
 var noise = FastNoiseLite.new()
 var random = RandomNumberGenerator.new()
 
+var currentGrass
+var currentDirt
+var tiles = {
+	"Grass_0" = 1,
+	"Grass_1" = 2,
+	"Dirt_0" = 0,
+	"Dirt_1" = 3,
+	"Dirt_2" = 4
+}
+
 func _ready() -> void:
 	mainLayerC1 = get_node("MainLayer").get_node("C1")
 	mainLayerC2 = get_node("MainLayer").get_node("C2")
@@ -41,22 +51,22 @@ func _generate(pos) -> void:
 				var grassNoise = FastNoiseLite.new()
 				grassNoise.noise_type = FastNoiseLite.TYPE_CELLULAR
 				grassNoise.seed = planet.id
-				if j == 0 or j - grassNoise.get_noise_1d(x)*15 < rendDist/16:
-					mainLayerC2.set_cell(Vector2i(x,y+j),1,Vector2i(0,0),0)
-					backgroundLayer1.set_cell(Vector2i(x*1.5,bgy+j),1,Vector2i(0,0),0)
+				if j == 0:
+					mainLayerC2.set_cell(Vector2i(x,y+j),tiles[currentGrass],Vector2i(0,0),0)
+					backgroundLayer1.set_cell(Vector2i(x*1.5,bgy+j),tiles[currentGrass],Vector2i(0,0),0)
 					if x%2 == 0:
 						var dir = 1 if x<0 else -1
-						backgroundLayer1.set_cell(Vector2i(x*1.5 + dir,bgy+j),1,Vector2i(0,0),0)
-					backgroundLayer2.set_cell(Vector2i(x*2,bgy2+j),1,Vector2i(0,0),0)
-					backgroundLayer2.set_cell(Vector2i(x*2+1,bgy2+j),1,Vector2i(0,0),0)
+						backgroundLayer1.set_cell(Vector2i(x*1.5 + dir,bgy+j),tiles[currentGrass],Vector2i(0,0),0)
+					backgroundLayer2.set_cell(Vector2i(x*2,bgy2+j),tiles[currentGrass],Vector2i(0,0),0)
+					backgroundLayer2.set_cell(Vector2i(x*2+1,bgy2+j),tiles[currentGrass],Vector2i(0,0),0)
 				else:
-					mainLayerC1.set_cell(Vector2i(x,y+j),0,Vector2i(0,0),0)
-					backgroundLayer1.set_cell(Vector2i(x*1.5,bgy+j),0,Vector2i(0,0),0)
+					mainLayerC1.set_cell(Vector2i(x,y+j),tiles[currentDirt],Vector2i(0,0),0)
+					backgroundLayer1.set_cell(Vector2i(x*1.5,bgy+j),tiles[currentDirt],Vector2i(0,0),0)
 					if x%2 == 0:
 						var dir = 1 if x<0 else -1
-						backgroundLayer1.set_cell(Vector2i(x*1.5 + dir,bgy+j),0,Vector2i(0,0),0)
-					backgroundLayer2.set_cell(Vector2i(x*2,bgy2+j),0,Vector2i(0,0),0)
-					backgroundLayer2.set_cell(Vector2i(x*2+1,bgy2+j),0,Vector2i(0,0),0)
+						backgroundLayer1.set_cell(Vector2i(x*1.5 + dir,bgy+j),tiles[currentDirt],Vector2i(0,0),0)
+					backgroundLayer2.set_cell(Vector2i(x*2,bgy2+j),tiles[currentDirt],Vector2i(0,0),0)
+					backgroundLayer2.set_cell(Vector2i(x*2+1,bgy2+j),tiles[currentDirt],Vector2i(0,0),0)
 			noise.seed = planet.id + 1
 			if noise.get_noise_1d(x) < 0.15 and x%20==0 and loadedObjectX.find(x) == -1:
 				var object = objects[random.randi_range(0,numObjects-1)]
@@ -131,6 +141,8 @@ func _gen_planet(p) -> void:
 	random.seed = planet.id
 	for i in range(numObjects):
 		objects.append(Objects._generatePlant(planet.id+i))
+	currentGrass = "Grass_" + str(random.randi_range(0,1))
+	currentDirt = "Dirt_" + str(random.randi_range(0,2))
 
 func _process(delta: float) -> void:
 	timer += delta
