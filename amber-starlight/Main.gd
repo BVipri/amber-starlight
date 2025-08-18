@@ -48,29 +48,31 @@ func _generate(pos) -> void:
 		var x = int(pos.x/32 + i - rendDist/2)
 		xRandom.seed = x
 		newLoadedX.append(x)
-		if loadedX.find(x) == -1:
+		if true: #loadedX.find(x) == -1:
 			var y = _generate_y(planet.id,x)
 			var bgy = _generate_y(planet.id+3,x)-planet.scale/20
 			var bgy2 = _generate_y(planet.id+6,x)-planet.scale/10
 			var bNoise = (biomeNoise.get_noise_1d(x/10)+1)/2
 			var currentBiome = int(bNoise*biomes)
+			print("Range: " + str(pos.y/32 - rendDist/4) + " - " + str(pos.y/32 + rendDist/4))
 			for j in range(rendDist/2):
-				if j == 0:
-					mainLayerC2.set_cell(Vector2i(x,y+j),tiles[biomeObjects[currentBiome][0][4]],Vector2i(0,0),0)
-					backgroundLayer1.set_cell(Vector2i(x*1.5,bgy+j),tiles[biomeObjects[currentBiome][0][4]],Vector2i(0,0),0)
+				var Y = int(pos.y/32 + j - rendDist/4)
+				if Y == y:
+					mainLayerC2.set_cell(Vector2i(x,y+Y),tiles[biomeObjects[currentBiome][0][4]],Vector2i(0,0),0)
+					backgroundLayer1.set_cell(Vector2i(x*1.5,bgy+Y),tiles[biomeObjects[currentBiome][0][4]],Vector2i(0,0),0)
 					if x%2 == 0:
 						var dir = 1 if x<0 else -1
-						backgroundLayer1.set_cell(Vector2i(x*1.5 + dir,bgy+j),tiles[biomeObjects[currentBiome][0][4]],Vector2i(0,0),0)
-					backgroundLayer2.set_cell(Vector2i(x*2,bgy2+j),tiles[biomeObjects[currentBiome][0][4]],Vector2i(0,0),0)
-					backgroundLayer2.set_cell(Vector2i(x*2+1,bgy2+j),tiles[biomeObjects[currentBiome][0][4]],Vector2i(0,0),0)
-				else:
-					mainLayerC1.set_cell(Vector2i(x,y+j),tiles[biomeObjects[currentBiome][0][3]],Vector2i(0,0),0)
-					backgroundLayer1.set_cell(Vector2i(x*1.5,bgy+j),tiles[biomeObjects[currentBiome][0][3]],Vector2i(0,0),0)
+						backgroundLayer1.set_cell(Vector2i(x*1.5 + dir,bgy+Y),tiles[biomeObjects[currentBiome][0][4]],Vector2i(0,0),0)
+					backgroundLayer2.set_cell(Vector2i(x*2,bgy2+Y),tiles[biomeObjects[currentBiome][0][4]],Vector2i(0,0),0)
+					backgroundLayer2.set_cell(Vector2i(x*2+1,bgy2+Y),tiles[biomeObjects[currentBiome][0][4]],Vector2i(0,0),0)
+				else: if Y > y:
+					mainLayerC1.set_cell(Vector2i(x,y+Y),tiles[biomeObjects[currentBiome][0][3]],Vector2i(0,0),0)
+					backgroundLayer1.set_cell(Vector2i(x*1.5,bgy+Y),tiles[biomeObjects[currentBiome][0][3]],Vector2i(0,0),0)
 					if x%2 == 0:
 						var dir = 1 if x<0 else -1
-						backgroundLayer1.set_cell(Vector2i(x*1.5 + dir,bgy+j),tiles[biomeObjects[currentBiome][0][3]],Vector2i(0,0),0)
-					backgroundLayer2.set_cell(Vector2i(x*2,bgy2+j),tiles[biomeObjects[currentBiome][0][3]],Vector2i(0,0),0)
-					backgroundLayer2.set_cell(Vector2i(x*2+1,bgy2+j),tiles[biomeObjects[currentBiome][0][3]],Vector2i(0,0),0)
+						backgroundLayer1.set_cell(Vector2i(x*1.5 + dir,bgy+Y),tiles[biomeObjects[currentBiome][0][3]],Vector2i(0,0),0)
+					backgroundLayer2.set_cell(Vector2i(x*2,bgy2+Y),tiles[biomeObjects[currentBiome][0][3]],Vector2i(0,0),0)
+					backgroundLayer2.set_cell(Vector2i(x*2+1,bgy2+Y),tiles[biomeObjects[currentBiome][0][3]],Vector2i(0,0),0)
 			for j in range(3):
 				var spacing = 20/int(pow(4,j))
 				if objectNoise.get_noise_1d(x) < 0.15 and x%spacing==0:
@@ -83,19 +85,20 @@ func _generate(pos) -> void:
 							mainObjectLayerC2.set_pattern(Vector2i(x*10-1000,y*10-1000),object[1])
 							mainObjectLayerC3.set_pattern(Vector2i(x*10-1000,y*10-1000),object[2])
 	for x in loadedX:
-		if newLoadedX.find(x) == -1:
+		if true: #newLoadedX.find(x) == -1:
 			var y = _generate_y(planet.id,x)
 			var bgy = _generate_y(planet.id+3,x)-planet.scale/20
 			var bgy2 = _generate_y(planet.id+6,x)-planet.scale/10
 			for j in range(rendDist/2):
-				mainLayerC1.erase_cell(Vector2i(x,y+j))
-				mainLayerC2.erase_cell(Vector2i(x,y+j))
-				backgroundLayer1.erase_cell(Vector2i(x*1.5,bgy+j))
+				var Y = int(pos.y/32 + j - rendDist/4)
+				mainLayerC1.erase_cell(Vector2i(x,y+Y))
+				mainLayerC2.erase_cell(Vector2i(x,y+Y))
+				backgroundLayer1.erase_cell(Vector2i(x*1.5,bgy+Y))
 				if x%2 == 0:
 					var dir = 1 if x<0 else -1
-					backgroundLayer1.erase_cell(Vector2i(x*1.5 + dir,bgy+j))
-				backgroundLayer2.erase_cell(Vector2i(x*2,bgy2+j))
-				backgroundLayer2.erase_cell(Vector2i(x*2+1,bgy2+j))
+					backgroundLayer1.erase_cell(Vector2i(x*1.5 + dir,bgy+Y))
+				backgroundLayer2.erase_cell(Vector2i(x*2,bgy2+Y))
+				backgroundLayer2.erase_cell(Vector2i(x*2+1,bgy2+Y))
 	#for object in loadedObjects:
 		#if newLoadedX.find((object[1].x+1000)/10) == -1:
 			#var cells = object[0][0].get_used_cells()

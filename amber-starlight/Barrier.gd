@@ -1,0 +1,2 @@
+extends ImmovableSolid
+class_name Barrier

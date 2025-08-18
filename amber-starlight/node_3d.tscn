@@ -1,10 +1,10 @@
 [gd_scene load_steps=29 format=4 uid="uid://cp845h34qu67s"]
 
 [ext_resource type="Script" uid="uid://bhg1bit2d45d7" path="res://Main.gd" id="1_a0tk4"]
-[ext_resource type="Script" path="res://node_3d.gd" id="1_a202f"]
+[ext_resource type="Script" uid="uid://djxdhc8v0hvm2" path="res://node_3d.gd" id="1_a202f"]
 [ext_resource type="Texture2D" uid="uid://ddacjcbaohnmj" path="res://icon.svg" id="1_noarx"]
-[ext_resource type="Texture2D" uid="uid://cb7e3fwcl8jv2" path="res://Dirt_0.png" id="4_r3fl7"]
-[ext_resource type="Texture2D" uid="uid://dkn1jctt7tld6" path="res://Grass_0.png" id="5_jka67"]
+[ext_resource type="Texture2D" uid="uid://cb7e3fwcl8jv2" path="res://New Piskel (4).png" id="4_r3fl7"]
+[ext_resource type="Texture2D" uid="uid://dkn1jctt7tld6" path="res://New Piskel (5).png" id="5_jka67"]
 [ext_resource type="Script" uid="uid://b6508r6a2v3wc" path="res://Objects.gd" id="6_i5arm"]
 [ext_resource type="Texture2D" uid="uid://ciusni27ocyl5" path="res://Grass_1.png" id="6_tereu"]
 [ext_resource type="Texture2D" uid="uid://d2bd2cotylpop" path="res://New Piskel (7).png" id="6_wc5p8"]
